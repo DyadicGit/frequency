@@ -3,3 +3,4 @@
 /package-lock.json
 /yarn.lock
 /node_modules/
+/frequency_gateway/src/main/resources/static/

@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development",
-    "prod": "webpack --mode production"
+    "bundle_dev": "webpack --mode development",
+    "bundle_prod": "webpack --mode production"
   },
   "dependencies": {
     "react": "latest",
