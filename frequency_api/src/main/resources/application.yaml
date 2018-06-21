@@ -1,0 +1,17 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: frequency_api
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8080/eureka/
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 1
+    lease-expiration-duration-in-seconds: 2
+    instance-id: frequency_api${random.int}
+logging:
+  level:
+    root: INFO
