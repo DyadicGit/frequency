@@ -1,13 +1,18 @@
-import {handleResponse} from 'handleResponse';
+import 'whatwg-fetch';
+import {handleResponse} from './handleResponse';
+
+export function sendFile(text) {
+    return function () {
+        return fetch('/echo/', {
+            method: 'POST',
+            body: text
+        }).then(handleResponse);
+    };
+}
 
 export function sendText(text) {
     return function () {
-        return fetch('/echo/', {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: 'GET',
-            body: text
-        }).then(handleResponse);
+        return fetch(`/echo/${text}`)
+            .then(handleResponse)
     };
 }

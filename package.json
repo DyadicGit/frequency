@@ -9,7 +9,8 @@
   "dependencies": {
     "prop-types": "^15.6.2",
     "react": "latest",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

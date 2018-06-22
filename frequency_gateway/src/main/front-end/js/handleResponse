@@ -4,12 +4,6 @@ export const handleResponse = (response) => {
     return result ? result : response;
 };
 
-export const handleJSONResponse = (response) => {
-    const result = handleErroneousResponse(response);
-
-    return result ? result : response.json();
-};
-
 const handleErroneousResponse = (response) => {
     const headers = response.headers;
 
