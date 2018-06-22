@@ -1,12 +1,13 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 const pathToGatewaysFrontEnd = './frequency_gateway/src/main/front-end';
 const pathToGatewaysStaticFolder = './frequency_gateway/src/main/resources/static';
 
 module.exports = {
-    mode: 'development',
+    mode: ['development', 'production'],
     entry: pathToGatewaysFrontEnd+'/index.js',
     output: {
         path: path.resolve(pathToGatewaysStaticFolder),
@@ -36,6 +37,7 @@ module.exports = {
             }
         ]
     },
+
     plugins: [
         new HtmlWebPackPlugin({
             template: pathToGatewaysFrontEnd+"/index.html",
@@ -44,6 +46,10 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "[name].css",
             chunkFilename: "[id].css"
-        })
+        }),
+        new CopyWebpackPlugin([
+            {from: pathToGatewaysFrontEnd+'/error',
+             to: './error'}
+        ])
     ]
 };
