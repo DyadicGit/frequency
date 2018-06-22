@@ -1,0 +1,23 @@
+export const handleResponse = (response) => {
+    const result = handleErroneousResponse(response);
+
+    return result ? result : response;
+};
+
+export const handleJSONResponse = (response) => {
+    const result = handleErroneousResponse(response);
+
+    return result ? result : response.json();
+};
+
+const handleErroneousResponse = (response) => {
+    const headers = response.headers;
+
+    if (response.status >= 500) {
+        console.log('Server error has occurred');
+    } else if (response.status === 400) {
+        return response.json().catch(() => {}).then(data => {
+            console.log('Server error has occurred',headers, data);
+        });
+    }
+};

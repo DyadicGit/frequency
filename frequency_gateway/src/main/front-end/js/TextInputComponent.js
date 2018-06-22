@@ -1,35 +1,34 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class FileInput extends React.Component {
+export default class TextInputComponent extends React.Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    // highlight-range{4}
     handleSubmit(event) {
         event.preventDefault();
-        alert(
-            `Selected file - ${this.fileInput.files[0].name}`
-        );
+        this.props.submitAction(this.textInput)
     }
 
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
                 <label>
-                    Upload file:
-                    {/* highlight-range{1-6} */}
+                    Input text:
                     <input
-                        type="file"
+                        type="text"
                         ref={input => {
-                            this.fileInput = input;
+                            this.textInput = input;
                         }}
                     />
                 </label>
-                <br />
-                <button type="submit">Submit</button>
+                <button type="submit">Send</button>
             </form>
         );
     }
-
 }
+
+TextInputComponent.propTypes = {
+    submitAction: PropTypes.func.isRequired,
+};
