@@ -1,0 +1,14 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: frequency-discovery
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://localhost:8080/eureka
+logging:
+  level:
+    root: INFO

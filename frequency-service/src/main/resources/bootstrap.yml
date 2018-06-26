@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: frequency-service
+  cloud:
+    config:
+      discovery:
+        serviceId: frequency-config
+        enabled: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8080/eureka
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 1
+    lease-expiration-duration-in-seconds: 2
+    instance-id: frequency-service:${random.uuid}
+logging:
+  level:
+    root: WARN
