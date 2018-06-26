@@ -1,8 +1,11 @@
-server:
-  port: 8081
 spring:
   application:
     name: frequency_api
+cloud:
+  config:
+   discovery:
+    serviceId: frequency-config
+    enabled: true
 eureka:
   client:
     serviceUrl:
@@ -11,7 +14,4 @@ eureka:
     prefer-ip-address: true
     lease-renewal-interval-in-seconds: 1
     lease-expiration-duration-in-seconds: 2
-    instance-id: frequency_api${random.int}
-logging:
-  level:
-    root: INFO
+    instance-id: ${spring.application.name}:${random.value}
