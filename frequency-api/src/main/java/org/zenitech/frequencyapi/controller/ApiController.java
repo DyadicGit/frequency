@@ -3,6 +3,7 @@ package org.zenitech.frequencyapi.controller;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.zenitech.frequencyapi.client.FrequencyServiceClient;
 import reactor.core.publisher.Mono;
 
 import java.util.concurrent.Callable;
@@ -10,9 +11,15 @@ import java.util.concurrent.Callable;
 @RestController
 public class ApiController {
 
+    private final FrequencyServiceClient frequencyServiceClient;
+
+    public ApiController(final FrequencyServiceClient frequencyServiceClient) {
+        this.frequencyServiceClient = frequencyServiceClient;
+    }
+
     @GetMapping("/echo/{text}")
     public Mono<String> echo(@PathVariable("text") String text) {
-        return Mono.just(text);
+             return Mono.just(frequencyServiceClient.process(text));
     }
 
     @GetMapping("/config")
@@ -33,6 +40,5 @@ public class ApiController {
         }
         return () -> "redirect:/upload";
     }
-    // avro, protobuf v3
 
 }
