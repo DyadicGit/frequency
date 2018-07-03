@@ -11,4 +11,4 @@ eureka:
     lease-expiration-duration-in-seconds: 2
 logging:
   level:
-    root: INFO
+    root: debug

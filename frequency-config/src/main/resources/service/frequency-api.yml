@@ -1,2 +1,4 @@
+server:
+ port: 0
 my:
   value: 5000
