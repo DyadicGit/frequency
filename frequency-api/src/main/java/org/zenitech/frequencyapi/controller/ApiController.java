@@ -1,25 +1,18 @@
 package org.zenitech.frequencyapi.controller;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.buffer.DataBuffer;
-import org.springframework.http.codec.multipart.FilePart;
-import org.springframework.http.codec.multipart.Part;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.zenitech.frequencyapi.client.FrequencyServiceClient;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.Callable;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -49,8 +42,24 @@ public class ApiController {
 
     @PostMapping("/upload")
     public Callable<String> upload(@RequestBody List<MultipartFile> files) {
-        return files.stream()
-                .map((Function<MultipartFile, Object>) MultipartFile::getInputStream);
-    }
+         Stream<InputStream> streamList = files.stream().map(multipartFile -> {
+             try {
+                 return multipartFile.getInputStream();
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
+             return null;
+         });
+        byte[] targetArray = new byte[0];
+         streamList.forEach(inputStream -> {
+             try {
+                 IOUtils.readFully(inputStream, targetArray);
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
+         });
+         return () -> targetArray.toString();
+    };
+
 
 }
